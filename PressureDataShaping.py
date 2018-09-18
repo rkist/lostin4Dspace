@@ -61,8 +61,8 @@ lofsTargets=pd.melt(pressuresLOFS,id_vars=['Well','MD','Z','PTI_TVT'],value_vars
 lofsTargets.columns=['Well','MD','Z','PTI_TVT','DeltaCase','DeltaPressure']
 
 targetsDf=pd.concat([pressureTargets,lofsTargets])
-targetsDf.to_csv(FILE_ROOT+PRESSURES_TARGET_OUTPUT_FILENAME,header=True,index=False)
-print(len(targetsDf.index)) 
+#targetsDf.to_csv(FILE_ROOT+PRESSURES_TARGET_OUTPUT_FILENAME,header=True,index=False)
+#print(len(targetsDf.index)) 
        
 xylocDf=pd.read_excel(FILE_ROOT+XY_RAW_FILENAME)
 targetsDf=pd.merge(xylocDf,targetsDf,how='inner',on='Well')
