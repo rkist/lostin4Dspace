@@ -18,3 +18,41 @@ pressures=pd.read_excel(FILE_ROOT+PRESSURES_RAW_FILENAME)
 pressuresStreamer=pressures[['Well','MD','Z','PTI_TVT','S92','S02','S12']]
 pressuresLOFS=pressures[['Well','MD','Z','PTI_TVT','L1','L6','L12','L14','L16','L18']]
 
+streamColumns=['S92','S02','S12']
+lofsColumns=['L1','L6','L12','L14','L16','L18']
+
+
+
+streamDeltaCols=[]
+for i in range(len(streamColumns)):
+    for j in range(len(streamColumns)):
+        if i==j:
+            continue
+        name=streamColumns[j]+"minus"+streamColumns[i]
+       #print(name)
+        streamDeltaCols.append(name)
+        pressuresStreamer[name]=pressuresStreamer[streamColumns[j]]-pressuresStreamer[streamColumns[i]]
+        
+
+pressuresStreamer.describe()
+
+lofsDeltaCols=[]
+
+for i in range(len(lofsColumns)):
+    for j in range(len(lofsColumns)):
+        if i==j:
+            continue
+        name=lofsColumns[j]+"minus"+lofsColumns[i]
+        lofsDeltaCols.append(name)
+        pressuresLOFS[name]=pressuresLOFS[lofsColumns[j]]-pressuresLOFS[lofsColumns[i]]
+        
+        
+#pd.melt(df, id_vars=['A'], value_vars=['B'])
+
+pressureTargets=pd.melt(pressuresStreamer,id_vars=['Well','MD','Z','PTI_TVT'],value_vars=streamDeltaCols)
+pressureTargets.columns=['Well','MD','Z','PTI_TVT','DeltaCase','DeltaPressure']
+
+        
+
+        
+        
