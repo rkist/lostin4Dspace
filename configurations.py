@@ -2,11 +2,8 @@ from scorer import *
 
 import numpy as np
 import pandas as pd
-from sklearn import svm
-import cloudpickle
 
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.datasets import make_regression
 
 from sklearn.model_selection import cross_validate
 from sklearn.metrics import confusion_matrix
@@ -22,7 +19,8 @@ pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 
 ###PATHS###
-FILE_ROOT='D:\\git\\github\\lostin4Dspace\\'
+FILE_ROOT=u'C:\\Users\\hakkad\\Documents\\GitHub\\lostin4Dspace\\'
+
 
 PRESSURES_RAW_FILENAME='Pressures.xlsx'
 XY_RAW_FILENAME='Locations.xlsx'
