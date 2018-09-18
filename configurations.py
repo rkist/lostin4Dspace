@@ -7,7 +7,6 @@ pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 
-
 ###PATHS###
 FILE_ROOT='D:\\git\\github\\lostin4Dspace\\'
 
@@ -23,6 +22,8 @@ STREAMERS_RAW_FILENAME='Streamer4D.xlsx'
 PRESSURES_FILENAME='PressureTargets.csv'
 
 PRESSURES_TARGET_OUTPUT_FILENAME='Dataset.csv'
+DATASET_OUTPUT_FILENAME='DatasetMaster.csv'
 
-
-
+TRAIN_DATASET_FILENAME='Train.csv'
+TEST_DATASET_FILENAME='Test.csv'
+TRAIN_PARTITION_PCT=0.8
