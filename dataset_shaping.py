@@ -12,14 +12,7 @@ from configurations import TRAIN_DATASET_FILENAME,TEST_DATASET_FILENAME,TRAIN_PA
 def SplitAndCleanData():
     """split and clean"""
 
-    pd.set_option('display.max_rows', 500)
-    pd.set_option('display.max_columns', 500)
-    pd.set_option('display.width', 1000)
-
-
     pressuresDf= pd.read_csv(FILE_ROOT+PRESSURES_FILENAME)
-
-    pressuresDf.describe()
 
     lofsDf=pd.read_excel(FILE_ROOT+LOFS_RAW_FILENAME)
     lofsDf.columns=[x.replace('_TVT','_') for x in lofsDf.columns]

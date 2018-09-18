@@ -9,7 +9,7 @@ from configurations import FILE_ROOT,PRESSURES_RAW_FILENAME,PRESSURES_TARGET_OUT
 import pandas as pd
 import numpy as np
 
-def IngestData():
+def IngestData(lowPressureFilter=0):
     """shape the data"""
     streamColumns=['S92','S02','S12']
     lofsColumns=['L1','L6','L12','L14','L16','L18']
@@ -40,7 +40,10 @@ def IngestData():
             name=streamColumns[j]+"minus"+streamColumns[i]
             #print(name)
             streamDeltaCols.append(name)
-            pressuresStreamer[name]=pressuresStreamer[streamColumns[j]]-pressuresStreamer[streamColumns[i]]
+            pressuresStreamer['multiplier']=[1 if min(x,y)>=lowPressureFilter else np.nan for x,y in zip(pressuresStreamer[streamColumns[j]],pressuresStreamer[streamColumns[i]])]
+            pressuresStreamer[name]=[ x for x in pressuresStreamer[streamColumns[j]]-pressuresStreamer[streamColumns[i]]]
+            pressuresStreamer[name]=pressuresStreamer[name]*pressuresStreamer['multiplier']
+            pressuresStreamer.drop('multiplier',axis=1)
 
     lofsDeltaCols=[]
 
@@ -50,7 +53,10 @@ def IngestData():
                 continue
             name=lofsColumns[j]+"minus"+lofsColumns[i]
             lofsDeltaCols.append(name)
+            pressuresLOFS['multiplier']=[1 if min(x,y)>=lowPressureFilter else np.nan for x,y in zip(pressuresLOFS[lofsColumns[j]],pressuresLOFS[lofsColumns[i]])]
             pressuresLOFS[name]=pressuresLOFS[lofsColumns[j]]-pressuresLOFS[lofsColumns[i]]
+            pressuresLOFS[name]=pressuresLOFS[name]*pressuresLOFS['multiplier']
+            pressuresLOFS.drop('multiplier',axis=1)
             
             
     #pd.melt(df, id_vars=['A'], value_vars=['B'])
@@ -71,7 +77,9 @@ def IngestData():
 
 
     targetsDf=targetsDf[targetsDf.DeltaPressure<=0]
+    print(len(targetsDf.index))
 
+    targetsDf=targetsDf[[np.isfinite(x) for x in targetsDf.DeltaPressure]]
 
     print(len(targetsDf.index))
 
