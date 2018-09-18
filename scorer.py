@@ -1,3 +1,6 @@
+
+import matplotlib.pyplot as plt
+
 def score_medium(yTest, y):
     numSamplesTest = len(y)
 
@@ -7,3 +10,6 @@ def score_medium(yTest, y):
     media = sum/numSamplesTest
 
     return media
+
+def plot_scatter(Ytest,y):
+    plt.scatter(Ytest,y)

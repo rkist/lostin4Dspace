@@ -44,4 +44,5 @@ print(len(Ytest))
 
 #score
 print(score_medium(Ytest, y))
+plot_scatter(Ytest,y)
 

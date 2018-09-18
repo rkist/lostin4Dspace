@@ -3,6 +3,7 @@ from scorer import *
 import numpy as np
 import pandas as pd
 
+
 from sklearn.ensemble import RandomForestRegressor
 
 from sklearn.model_selection import cross_validate
@@ -19,7 +20,7 @@ pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 
 ###PATHS###
-FILE_ROOT=u'C:\\Users\\hakkad\\Documents\\GitHub\\lostin4Dspace\\'
+FILE_ROOT='D:\\git\\github\\lostin4Dspace\\'
 
 
 PRESSURES_RAW_FILENAME='Pressures.xlsx'
