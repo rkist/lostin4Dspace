@@ -11,6 +11,19 @@ def test_inside_polygon():
     print(inside_polygon(outPoint0, pol) == False)
     print(inside_polygon(outPoint1, pol) == False)
 
+
+def test_filter_points():
+    pol = [(1,1),(2,1),(3,1),(3,2),(3,3),(2,3),(1,3)]
+
+    inPoint = (2,2)
+    outPoint0 = (5,5)
+    outPoint1 = (2,5)
+
+    points = [inPoint, outPoint0, outPoint1]
+
+    print(len(filter_points(points, pol)) == 1)
+
+
 def inside_polygon(p, polygon):
     """
     Reference: http://www.ariel.com.au/a/python-point-int-poly.html
@@ -33,8 +46,18 @@ def inside_polygon(p, polygon):
         p1x, p1y = p2x, p2y
     return inside
 
+def filter_points(points, polygon):
+    filtered = []
+
+    for p in points:
+        if (inside_polygon(p, polygon)):
+            filtered.append(p)
+    
+    return filtered
+
 
 test_inside_polygon()
+test_filter_points()
 
 
 
