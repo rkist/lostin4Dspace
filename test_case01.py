@@ -3,6 +3,19 @@ from configurations import *
 from scorer import *
 from output import *
 
+def CreateClassifier():
+    regr = RandomForestRegressor(max_depth=8, random_state=0)
+    return regr
+
+# def CreateClassifier():
+#     regr = svm.SVR()
+#     return regr
+
+
+# def CreateClassifier():
+#     regr = linear_model.Ridge (alpha = .5)
+#     return regr
+
 
 def RandomForestTheData():
     """run the first stuff"""
@@ -30,15 +43,10 @@ def RandomForestTheData():
     print(Xtrain.head())
     print(Ytrain.head())
 
-    regr = RandomForestRegressor(max_depth=8, random_state=0)
+    regr = CreateClassifier()
     regr.fit(Xtrain, Ytrain, sample_weight=Wtrain)
+    # regr.fit(Xtrain, Ytrain)
 
-    # RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=2,
-    #            max_features='auto', max_leaf_nodes=None,
-    #            min_impurity_decrease=0.0, min_impurity_split=None,
-    #            min_samples_leaf=1, min_samples_split=2,
-    #            min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
-    #            oob_score=False, random_state=0, verbose=0, warm_start=False)
 
     Ypredicted = regr.predict(Xtest)
 
@@ -47,16 +55,15 @@ def RandomForestTheData():
 
     OutputPredictedVsTest(Ypredicted, Ytest, PREDICTED_AND_TEST_FILENAME)
 
-    OutputXYZandP(Xtrain[["x", "y", "Z"]], Ytrain, "pTrain.csv")
+    OutputXYZandP(trainDf[["x", "y", "Z", "DeltaCase"]], Ytrain, "pTrain.csv")
 
-    OutputXYZandP(Xtest[["x", "y", "Z"]], Ytest, "pTest.csv")
-    OutputXYZandP(Xtest[["x", "y", "Z"]], Ypredicted, "pPredict.csv")
-
-    
+    OutputXYZandP(testDf[["x", "y", "Z", "DeltaCase"]], Ytest, "pTest.csv")
+    OutputXYZandP(testDf[["x", "y", "Z", "DeltaCase"]], Ypredicted, "pPredict.csv")   
 
 
 
     #score
+    # print(regr.score(Xtest, Ytest))
     print(regr.score(Xtest, Ytest, sample_weight=Wtest))
 
     print(score_medium(Ytest, Ypredicted))
