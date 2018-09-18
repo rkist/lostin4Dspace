@@ -2,25 +2,25 @@ from configurations import *
 
 
 trainDf= pd.read_csv(FILE_ROOT+TRAIN_DATASET_FILENAME)
-targetDf= pd.read_csv(FILE_ROOT+PRESSURES_TARGET_OUTPUT_FILENAME)
+# targetDf= pd.read_csv(FILE_ROOT+PRESSURES_TARGET_OUTPUT_FILENAME)
 
 print(trainDf.head())
-print(targetDf.head())
+# print(targetDf.head())
 
 print(trainDf.index)
-print(targetDf.index)
+# print(targetDf.index)
 
 
 #define 
-regr = RandomForestRegressor(max_depth=2, random_state=0)
+regr = RandomForestRegressor(max_depth=4, random_state=0)
 
-X = trainDf[[ "x", "y", "MD","Z",  "PTI_TVT", "DeltaCase", "DeltaPressure", "co", "ai", "4D qual Fact"]]
-Y = targetDf["DeltaPressure"]
+X = trainDf[[ "x", "y", "MD","Z",  "PTI_TVT", "co", "ai", "4D qual Fact"]]
+Y = trainDf["DeltaPressure"]
 
 print(X.head())
 print(Y.head())
 
-#regr.fit(X, Y)
+regr.fit(X, Y)
 
 # RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=2,
 #            max_features='auto', max_leaf_nodes=None,
@@ -30,20 +30,11 @@ print(Y.head())
 #            oob_score=False, random_state=0, verbose=0, warm_start=False)
 
 
-# print(regr.feature_importances_)
-
-# print(regr.predict([[0, 0, 0, 0]]))
-
-
-
-
-
-#train              
-
+print(regr.feature_importances_)
 
 
 #score
-# clf.score(X, Y)
+print(regr.score(X, Y))
 
 
 
