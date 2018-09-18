@@ -5,7 +5,7 @@ pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 
 ###PATHS###
-FILE_ROOT='C:\Users\hakkad\Documents\GitHub\lostin4Dspace'
+FILE_ROOT=u'C:\\Users\\hakkad\\Documents\\GitHub\\lostin4Dspace\\'
 
 PRESSURES_RAW_FILENAME='Pressures.xlsx'
 XY_RAW_FILENAME='Locations.xlsx'
@@ -18,7 +18,6 @@ LOFS_RAW_FILENAME='LOFS4D.xlsx'
 STREAMERS_RAW_FILENAME='Streamer4D.xlsx'
 PRESSURES_FILENAME='PressureTargets.csv'
 
-PRESSURES_TARGET_OUTPUT_FILENAME='Dataset.csv'
 DATASET_OUTPUT_FILENAME='DatasetMaster.csv'
 
 TRAIN_DATASET_FILENAME='Train.csv'
