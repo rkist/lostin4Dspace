@@ -1,47 +1,56 @@
 from configurations import *
 
 
-trainDf= pd.read_csv(FILE_ROOT+TRAIN_DATASET_FILENAME)
-# targetDf= pd.read_csv(FILE_ROOT+PRESSURES_TARGET_OUTPUT_FILENAME)
+def RandomForestTheData():
+    """run the first stuff"""
+    trainDf= pd.read_csv(FILE_ROOT+TRAIN_DATASET_FILENAME)
+    testDf= pd.read_csv(FILE_ROOT+TEST_DATASET_FILENAME)
 
-print(trainDf.head())
-# print(targetDf.head())
+    print(trainDf.head())
+    print(trainDf.index)
 
-print(trainDf.index)
-# print(targetDf.index)
-
-
-#define 
-regr = RandomForestRegressor(max_depth=4, random_state=0, n_estimators=100, verbose=1, criterion='mse')
-
-X = trainDf[[ "PTI_TVT", "co", "ai", "4D qual Fact"]]
-Y = trainDf["DeltaPressure"]
-
-print(X.head())
-print(Y.head())
-
-regr.fit(X, Y)
-
-# RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=2,
-#            max_features='auto', max_leaf_nodes=None,
-#            min_impurity_decrease=0.0, min_impurity_split=None,
-#            min_samples_leaf=1, min_samples_split=2,
-#            min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
-#            oob_score=False, random_state=0, verbose=0, warm_start=False)
+    print(testDf.head())
+    print(testDf.index)
 
 
-print(regr.feature_importances_)
+    #define 
+    regr = RandomForestRegressor(max_depth=8, random_state=0)
+
+    trainingColumns = [ "x", "y", "MD","Z",  "PTI_TVT", "co", "ai"]
+
+    Xtrain = trainDf[trainingColumns]
+    Ytrain = trainDf["DeltaPressure"]
+    Wtrain = trainDf["4D qual Fact"]
+
+    Xtest = testDf[trainingColumns]
+    Ytest = testDf["DeltaPressure"]
+    Wtest = testDf["4D qual Fact"]
+
+    print(Xtrain.head())
+    print(Ytrain.head())
+
+    regr.fit(Xtrain, Ytrain, sample_weight=Wtrain)
+
+    # RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=2,
+    #            max_features='auto', max_leaf_nodes=None,
+    #            min_impurity_decrease=0.0, min_impurity_split=None,
+    #            min_samples_leaf=1, min_samples_split=2,
+    #            min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
+    #            oob_score=False, random_state=0, verbose=0, warm_start=False)
+
+    Ypredicted = regr.predict(Xtest)
+
+    print('{} == {}'.format(len(Ypredicted), len(Ytest)))
 
 
+    predictedVsTest = pd.concat([pd.DataFrame(Ypredicted), pd.DataFrame(Ytest)], axis=1, sort=False)
+    predictedVsTest.to_csv(FILE_ROOT+PREDICTED_AND_TEST_FILENAME)
 
-testDf= pd.read_csv(FILE_ROOT+TEST_DATASET_FILENAME)
+    #score
+    print(regr.score(Xtest, Ytest, sample_weight=Wtest))
 
-X = testDf[[ "PTI_TVT", "co", "ai", "4D qual Fact"]]
-Y = testDf["DeltaPressure"]
-
-#score
-print(regr.score(X, Y))
-
+    print(score_medium(Ytest, Ypredicted))
+    plot_scatter(Ytest, Ypredicted, Wtest)
 
 
 

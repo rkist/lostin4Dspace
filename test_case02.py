@@ -1,7 +1,5 @@
 from configurations import *
 
-import matplotlib.pyplot as plt
-
 trainDf= pd.read_csv(FILE_ROOT+TRAIN_DATASET_FILENAME)
 testDf= pd.read_csv(FILE_ROOT+TEST_DATASET_FILENAME)
 
