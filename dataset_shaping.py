@@ -20,6 +20,9 @@ PRESSURES_FILENAME='PressureTargets.csv'
 PRESSURES_TARGET_OUTPUT_FILENAME='Dataset.csv'
 DATASET_OUTPUT_FILENAME='DatasetMaster.csv'
 
+TRAIN_DATASET_FILENAME='Train.csv'
+TEST_DATASET_FILENAME='Test.csv'
+
 TRAIN_PARTITION_PCT=0.8
 
 ######
@@ -94,6 +97,9 @@ trainWells=uniqueWells[range(int(TRAIN_PARTITION_PCT*len(uniqueWells)))]
 
 trainDf=datasetDf[[x in trainWells for x in datasetDf.Well]]
 testDf=datasetDf[[x not in trainWells for x in datasetDf.Well]]
+
+trainDf.to_csv(FILE_ROOT+TRAIN_DATASET_FILENAME)
+testDf.to_csv(FILE_ROOT+TEST_DATASET_FILENAME)
 
 
 
