@@ -3,3 +3,5 @@
 *.pyc
 
 *.csv
+Train.csv
+*.csv
