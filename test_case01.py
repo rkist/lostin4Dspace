@@ -1,5 +1,8 @@
 from configurations import *
 
+from scorer import *
+from output import *
+
 
 def RandomForestTheData():
     """run the first stuff"""
@@ -43,8 +46,16 @@ def RandomForestTheData():
     print('{} == {}'.format(len(Ypredicted), len(Ytest)))
 
 
-    predictedVsTest = pd.concat([pd.DataFrame(Ypredicted), pd.DataFrame(Ytest)], axis=1, sort=False)
-    predictedVsTest.to_csv(FILE_ROOT+PREDICTED_AND_TEST_FILENAME)
+    OutputPredictedVsTest(Ypredicted, Ytest, PREDICTED_AND_TEST_FILENAME)
+
+    OutputXYZandP(Xtrain[["x", "y", "Z"]], Ytrain, "pTrain.txt")
+
+    OutputXYZandP(Xtest[["x", "y", "Z"]], Ytest, "pTest.txt")
+    OutputXYZandP(Xtest[["x", "y", "Z"]], Ypredicted, "pPredict.txt")
+
+    
+
+
 
     #score
     print(regr.score(Xtest, Ytest, sample_weight=Wtest))
