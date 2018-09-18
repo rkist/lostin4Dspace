@@ -20,7 +20,7 @@ lofsColumns=['L1','L6','L12','L14','L16','L18']
 streamDeltaCols=[]
 for i in range(len(streamColumns)):
     for j in range(len(streamColumns)):
-        if i==j:
+        if i>=j:
             continue
         name=streamColumns[j]+"minus"+streamColumns[i]
        #print(name)
@@ -34,7 +34,7 @@ lofsDeltaCols=[]
 
 for i in range(len(lofsColumns)):
     for j in range(len(lofsColumns)):
-        if i==j:
+        if i>=j:
             continue
         name=lofsColumns[j]+"minus"+lofsColumns[i]
         lofsDeltaCols.append(name)
