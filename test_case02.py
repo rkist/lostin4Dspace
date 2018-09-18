@@ -38,16 +38,6 @@ regr.fit(Xtrain, Ytrain)
 
 y = regr.predict(Xtest)
 
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Sep 18 07:32:07 2018
-
-@author: hakkad
-"""
-
-
-
-
 plt.scatter(Ytest,y)
 
 
