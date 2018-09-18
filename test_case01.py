@@ -14,18 +14,20 @@ print(testDf.index)
 #define 
 regr = RandomForestRegressor(max_depth=4, random_state=0)
 
-trainingColumns = [ "x", "y", "MD","Z",  "PTI_TVT", "co", "ai", "4D qual Fact"]
+trainingColumns = [ "x", "y", "MD","Z",  "PTI_TVT", "co", "ai"]
 
 Xtrain = trainDf[trainingColumns]
 Ytrain = trainDf["DeltaPressure"]
+Wtrain = trainDf["4D qual Fact"]
 
 Xtest = testDf[trainingColumns]
 Ytest = testDf["DeltaPressure"]
+Wtest = testDf["4D qual Fact"]
 
 print(Xtrain.head())
 print(Ytrain.head())
 
-regr.fit(Xtrain, Ytrain)
+regr.fit(Xtrain, Ytrain, sample_weight=Wtrain)
 
 # RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=2,
 #            max_features='auto', max_leaf_nodes=None,
@@ -34,15 +36,15 @@ regr.fit(Xtrain, Ytrain)
 #            min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
 #            oob_score=False, random_state=0, verbose=0, warm_start=False)
 
-y = regr.predict(Xtest)
+Ypredicted = regr.predict(Xtest)
 
-
-
-print(len(y))
+print(len(Ypredicted))
 print(len(Ytest))
 
 
 #score
-print(score_medium(Ytest, y))
-plot_scatter(Ytest,y)
+print(regr.score(Xtest, Ytest, sample_weight=Wtest))
+
+print(score_medium(Ytest, Ypredicted))
+plot_scatter(Ytest, Ypredicted)
 
