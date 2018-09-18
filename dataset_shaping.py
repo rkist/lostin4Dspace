@@ -17,7 +17,6 @@ pd.set_option('display.width', 1000)
 
 pressuresDf= pd.read_csv(FILE_ROOT+PRESSURES_FILENAME)
 
-pressuresDf[pressuresDf.DeltaPressure>=0]
 pressuresDf.describe()
 
 lofsDf=pd.read_excel(FILE_ROOT+LOFS_RAW_FILENAME)
