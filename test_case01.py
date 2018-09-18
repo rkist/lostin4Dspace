@@ -1,5 +1,8 @@
 from configurations import *
 
+from scorer import *
+from output import *
+
 
 def RandomForestTheData():
     """run the first stuff"""
@@ -14,8 +17,6 @@ def RandomForestTheData():
 
 
     #define 
-    regr = RandomForestRegressor(max_depth=8, random_state=0)
-
     trainingColumns = [ "x", "y", "MD","Z",  "PTI_TVT", "co", "ai"]
 
     Xtrain = trainDf[trainingColumns]
@@ -29,6 +30,7 @@ def RandomForestTheData():
     print(Xtrain.head())
     print(Ytrain.head())
 
+    regr = RandomForestRegressor(max_depth=8, random_state=0)
     regr.fit(Xtrain, Ytrain, sample_weight=Wtrain)
 
     # RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=2,
@@ -43,8 +45,16 @@ def RandomForestTheData():
     print('{} == {}'.format(len(Ypredicted), len(Ytest)))
 
 
-    predictedVsTest = pd.concat([pd.DataFrame(Ypredicted), pd.DataFrame(Ytest)], axis=1, sort=False)
-    predictedVsTest.to_csv(FILE_ROOT+PREDICTED_AND_TEST_FILENAME)
+    OutputPredictedVsTest(Ypredicted, Ytest, PREDICTED_AND_TEST_FILENAME)
+
+    OutputXYZandP(Xtrain[["x", "y", "Z"]], Ytrain, "pTrain.csv")
+
+    OutputXYZandP(Xtest[["x", "y", "Z"]], Ytest, "pTest.csv")
+    OutputXYZandP(Xtest[["x", "y", "Z"]], Ypredicted, "pPredict.csv")
+
+    
+
+
 
     #score
     print(regr.score(Xtest, Ytest, sample_weight=Wtest))
