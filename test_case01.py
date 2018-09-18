@@ -2,25 +2,30 @@ from configurations import *
 
 
 trainDf= pd.read_csv(FILE_ROOT+TRAIN_DATASET_FILENAME)
-# targetDf= pd.read_csv(FILE_ROOT+PRESSURES_TARGET_OUTPUT_FILENAME)
+testDf= pd.read_csv(FILE_ROOT+TEST_DATASET_FILENAME)
 
 print(trainDf.head())
-# print(targetDf.head())
-
 print(trainDf.index)
-# print(targetDf.index)
+
+print(testDf.head())
+print(testDf.index)
 
 
 #define 
 regr = RandomForestRegressor(max_depth=4, random_state=0)
 
-X = trainDf[[ "x", "y", "MD","Z",  "PTI_TVT", "co", "ai", "4D qual Fact"]]
-Y = trainDf["DeltaPressure"]
+trainingColumns = [ "x", "y", "MD","Z",  "PTI_TVT", "co", "ai", "4D qual Fact"]
 
-print(X.head())
-print(Y.head())
+Xtrain = trainDf[trainingColumns]
+Ytrain = trainDf["DeltaPressure"]
 
-regr.fit(X, Y)
+Xtest = testDf[trainingColumns]
+Ytest = testDf["DeltaPressure"]
+
+print(Xtrain.head())
+print(Ytrain.head())
+
+regr.fit(Xtrain, Ytrain)
 
 # RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=2,
 #            max_features='auto', max_leaf_nodes=None,
@@ -29,12 +34,16 @@ regr.fit(X, Y)
 #            min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
 #            oob_score=False, random_state=0, verbose=0, warm_start=False)
 
-
-print(regr.feature_importances_)
-
+y = regr.predict(Xtest)
 
 #score
-print(regr.score(X, Y))
+
+
+
+
+
+
+
 
 
 

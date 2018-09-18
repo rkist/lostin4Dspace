@@ -6,6 +6,10 @@ import cloudpickle
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.datasets import make_regression
 
+from sklearn.model_selection import cross_validate
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import f1_score
+
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
