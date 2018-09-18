@@ -36,15 +36,12 @@ regr.fit(Xtrain, Ytrain)
 
 y = regr.predict(Xtest)
 
+
+
+print(len(y))
+print(len(Ytest))
+
+
 #score
-
-
-
-
-
-
-
-
-
-
+print(score_medium(Ytest, y))
 
