@@ -46,5 +46,5 @@ print(len(Ytest))
 print(regr.score(Xtest, Ytest, sample_weight=Wtest))
 
 print(score_medium(Ytest, Ypredicted))
-plot_scatter(Ytest, Ypredicted)
+plot_scatter(Ytest, Ypredicted, Wtest)
 

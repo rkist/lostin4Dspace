@@ -11,5 +11,6 @@ def score_medium(yTest, y):
 
     return media
 
-def plot_scatter(Ytest,y):
-    plt.scatter(Ytest,y)
+def plot_scatter(Ytest,y, w):
+    plt.scatter(Ytest,y, c=w)
+    plt.show()
