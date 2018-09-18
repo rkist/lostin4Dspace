@@ -14,7 +14,7 @@ def RandomForestTheData():
 
 
     #define 
-    regr = RandomForestRegressor(max_depth=4, random_state=0)
+    regr = RandomForestRegressor(max_depth=8, random_state=0)
 
     trainingColumns = [ "x", "y", "MD","Z",  "PTI_TVT", "co", "ai"]
 
@@ -40,9 +40,11 @@ def RandomForestTheData():
 
     Ypredicted = regr.predict(Xtest)
 
-    print(len(Ypredicted))
-    print(len(Ytest))
+    print('{} == {}'.format(len(Ypredicted), len(Ytest)))
 
+
+    predictedVsTest = pd.concat([pd.DataFrame(Ypredicted), pd.DataFrame(Ytest)], axis=1, sort=False)
+    predictedVsTest.to_csv(FILE_ROOT+PREDICTED_AND_TEST_FILENAME)
 
     #score
     print(regr.score(Xtest, Ytest, sample_weight=Wtest))
@@ -50,5 +52,5 @@ def RandomForestTheData():
     print(score_medium(Ytest, Ypredicted))
     plot_scatter(Ytest, Ypredicted, Wtest)
 
-    
+
 

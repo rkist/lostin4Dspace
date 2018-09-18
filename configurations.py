@@ -28,6 +28,8 @@ XY_RAW_FILENAME='Locations.xlsx'
 
 PRESSURES_TARGET_OUTPUT_FILENAME='PressureTargets.csv'
 
+PREDICTED_AND_TEST_FILENAME = 'PredictedVsTest.csv'
+
 
 ###PATHS###
 LOFS_RAW_FILENAME='LOFS4D.xlsx'
