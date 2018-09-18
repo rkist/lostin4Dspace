@@ -17,8 +17,6 @@ def RandomForestTheData():
 
 
     #define 
-    regr = RandomForestRegressor(max_depth=8, random_state=0)
-
     trainingColumns = [ "x", "y", "MD","Z",  "PTI_TVT", "co", "ai"]
 
     Xtrain = trainDf[trainingColumns]
@@ -32,6 +30,7 @@ def RandomForestTheData():
     print(Xtrain.head())
     print(Ytrain.head())
 
+    regr = RandomForestRegressor(max_depth=8, random_state=0)
     regr.fit(Xtrain, Ytrain, sample_weight=Wtrain)
 
     # RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=2,
@@ -48,10 +47,10 @@ def RandomForestTheData():
 
     OutputPredictedVsTest(Ypredicted, Ytest, PREDICTED_AND_TEST_FILENAME)
 
-    OutputXYZandP(Xtrain[["x", "y", "Z"]], Ytrain, "pTrain.txt")
+    OutputXYZandP(Xtrain[["x", "y", "Z"]], Ytrain, "pTrain.csv")
 
-    OutputXYZandP(Xtest[["x", "y", "Z"]], Ytest, "pTest.txt")
-    OutputXYZandP(Xtest[["x", "y", "Z"]], Ypredicted, "pPredict.txt")
+    OutputXYZandP(Xtest[["x", "y", "Z"]], Ytest, "pTest.csv")
+    OutputXYZandP(Xtest[["x", "y", "Z"]], Ypredicted, "pPredict.csv")
 
     
 
