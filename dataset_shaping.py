@@ -1,11 +1,12 @@
-# -*- coding: utf-8 -*-
+
 """
 @author: dhakk
 """
 
 import pandas as pd
 import random
-from configurations import *
+from configurations import FILE_ROOT,PRESSURES_FILENAME,LOFS_RAW_FILENAME,STREAMERS_RAW_FILENAME,DATASET_OUTPUT_FILENAME
+from configurations import TRAIN_DATASET_FILENAME,TEST_DATASET_FILENAME,TRAIN_PARTITION_PCT
 
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
