@@ -16,3 +16,7 @@ def plot_scatter(Ytest,y, w):
     plt.colorbar()
     plt.grid(False)
     plt.show()
+
+def plot_hist(data):
+    plt.hist(data, bins = 12)
+    plt.show()

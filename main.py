@@ -2,6 +2,7 @@ from ingest_data import IngestData
 from dataset_shaping import SplitAndCleanData
 from test_case01 import TrainIt
 from output import OutputXYZandP
+from scorer import plot_hist
 
 import pandas as pd
 from configurations import FILE_ROOT,PRESSURES_FILENAME,LOFS_RAW_FILENAME,STREAMERS_RAW_FILENAME,DATASET_OUTPUT_FILENAME
@@ -34,6 +35,8 @@ if __name__ == "__main__":
     OutputXYZandP(theWell[["x", "y", "Z", "DeltaCase"]], theWell[predictColumn], "WellsOriginalP.csv")
     OutputXYZandP(theWell[["x", "y", "Z", "DeltaCase"]].reset_index(), predictedPressure, "WellsPredictedP.csv")
 
-
+    # plot_hist(datasetDf["PTI_TVT"])
+    # plot_hist(datasetDf["co"])
+    # plot_hist(datasetDf["ai"])
 
 

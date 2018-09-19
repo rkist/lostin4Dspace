@@ -15,7 +15,7 @@ def CreateClassifier():
 
 def CreateClassifier2():
     regr = svm.SVR(C=1e3, cache_size=200, coef0=0.0, degree=3, epsilon=0.1, gamma="auto", 
-        kernel='poly', max_iter=-1, shrinking=True, tol=0.005, verbose=True)
+        kernel='poly', max_iter=-1, shrinking=True, tol=0.001, verbose=True)
     return regr
 
 
@@ -49,7 +49,18 @@ def TrainIt(showPlots = True):
     print(Ytrain.head())
 
 
+    # quantile_transformer = preprocessing.QuantileTransformer(random_state=0).fit(Xtrain)
+    
+    # Xtrain = quantile_transformer.transform(Xtrain) 
+    # Xtest = quantile_transformer.transform(Xtest) 
 
+
+    transformer = FunctionTransformer(np.log1p)
+    transformer.transform(Xtrain[["co", "ai"]])
+    # transformer.transform(Xtrain["ai"])
+    transformer.transform(Xtrain[["co", "ai"]])
+    # transformer.transform(Xtest["ai"])
+    
     scaler = preprocessing.StandardScaler().fit(Xtrain)
 
     Xtrain = scaler.transform(Xtrain) 
