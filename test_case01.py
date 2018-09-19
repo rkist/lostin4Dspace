@@ -14,13 +14,13 @@ def CreateClassifier():
     return regr
 
 def CreateClassifier2():
-    regr = svm.SVR(C=1e3, cache_size=500, coef0=0.0, degree=3, epsilon=0.01, gamma="auto", 
-        kernel='poly', max_iter=1e8, shrinking=True, tol=0.001, verbose=True)
+    regr = svm.SVR(C=1e3, cache_size=200, coef0=0.0, degree=3, epsilon=0.1, gamma="auto", 
+        kernel='poly', max_iter=-1, shrinking=True, tol=0.005, verbose=True)
     return regr
 
 
 def CreateClassifier3():
-    regr = linear_model.Ridge (alpha = .5)
+    regr = linear_model.Ridge (alpha = .5, solver='sag')
     return regr
 
 
