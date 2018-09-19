@@ -17,7 +17,7 @@ def IngestShapeTrain(plot = True):
     return regr
 
 if __name__ == "__main__":
-    regr = IngestShapeTrain(False)
+    regr = IngestShapeTrain(True)
 
 
 
