@@ -42,3 +42,7 @@ DATASET_OUTPUT_FILENAME='DatasetMaster.csv'
 TRAIN_DATASET_FILENAME='Train.csv'
 TEST_DATASET_FILENAME='Test.csv'
 TRAIN_PARTITION_PCT=0.8
+
+weightColumn = "4D qual Fact"
+predictColumn = "DeltaPressure"
+trainingColumns = [ "x", "y", "MD", "Z", "PTI_TVT", "co", "ai"]

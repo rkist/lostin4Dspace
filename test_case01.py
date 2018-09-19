@@ -14,8 +14,8 @@ def CreateClassifier():
     return regr
 
 # def CreateClassifier():
-#     regr = svm.SVR(C=1e3, cache_size=200, coef0=0.0, degree=3, epsilon=0.1, gamma="auto", 
-#         kernel='poly', max_iter=1e7, shrinking=True, tol=0.01, verbose=True)
+#     regr = svm.SVR(C=1e2, cache_size=200, coef0=0.0, degree=3, epsilon=0.01, gamma="auto", 
+#         kernel='poly', max_iter=1e7, shrinking=True, tol=0.001, verbose=True)
 #     return regr
 
 
@@ -24,7 +24,7 @@ def CreateClassifier():
 #     return regr
 
 
-def RandomForestTheData():
+def TrainIt(showPlots = True):
     """run the first stuff"""
     trainDf= pd.read_csv(FILE_ROOT+TRAIN_DATASET_FILENAME)
     testDf= pd.read_csv(FILE_ROOT+TEST_DATASET_FILENAME)
@@ -37,10 +37,6 @@ def RandomForestTheData():
 
 
     #define 
-    weightColumn = "4D qual Fact"
-    predictColumn = "DeltaPressure"
-    trainingColumns = [ "x", "y", "MD", "Z", "PTI_TVT", "co", "ai"]
-
     Xtrain = trainDf[trainingColumns]
     Ytrain = trainDf[predictColumn]
     Wtrain = trainDf[weightColumn]
@@ -55,7 +51,7 @@ def RandomForestTheData():
 
 
     scaler = preprocessing.StandardScaler().fit(Xtrain)
-    
+
     Xtrain = scaler.transform(Xtrain) 
     Xtest = scaler.transform(Xtest) 
 
@@ -84,9 +80,9 @@ def RandomForestTheData():
     print(regr.score(Xtest, Ytest, sample_weight=Wtest))
 
     print(score_medium(Ytest, Ypredicted))
-    
-    plot_scatter(Ytrain, regr.predict(Xtrain), Wtrain)
-    plot_scatter(Ytest, Ypredicted, Wtest)
+    if (showPlots):
+        plot_scatter(Ytrain, regr.predict(Xtrain), Wtrain)
+        plot_scatter(Ytest, Ypredicted, Wtest)
 
-
+    return regr
 
