@@ -5,7 +5,10 @@ from output import OutputXYZandP
 
 import pandas as pd
 from configurations import FILE_ROOT,PRESSURES_FILENAME,LOFS_RAW_FILENAME,STREAMERS_RAW_FILENAME,DATASET_OUTPUT_FILENAME
+from configurations import SELECTED_WELL_ID
 from configurations import weightColumn, predictColumn, trainingColumns
+
+
 
 def IngestShapeTrain(plot = True):
     IngestData()
@@ -18,12 +21,10 @@ if __name__ == "__main__":
 
 
 
-
     print("-----------------------------------------------------")
-
     datasetDf = pd.read_csv(FILE_ROOT+DATASET_OUTPUT_FILENAME) 
 
-    theWell = datasetDf[datasetDf["Well"] == 10]
+    theWell = datasetDf[datasetDf["Well"] == SELECTED_WELL_ID]
     print(theWell.head())
 
     predictedPressure = regr.predict(theWell[trainingColumns])

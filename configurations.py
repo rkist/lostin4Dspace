@@ -46,3 +46,5 @@ TRAIN_PARTITION_PCT=0.8
 weightColumn = "4D qual Fact"
 predictColumn = "DeltaPressure"
 trainingColumns = [ "x", "y", "MD", "Z", "PTI_TVT", "co", "ai"]
+
+SELECTED_WELL_ID = 10
