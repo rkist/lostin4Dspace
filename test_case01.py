@@ -4,7 +4,7 @@ from scorer import *
 from output import *
 
 def CreateClassifier():
-    regr = RandomForestRegressor(bootstrap=True, max_depth=12,
+    regr = RandomForestRegressor(bootstrap=True, max_depth=8,
            max_features='auto', max_leaf_nodes=None,
            min_impurity_decrease=0.0, min_impurity_split=None,
            min_samples_leaf=2, min_samples_split=2,
@@ -22,6 +22,25 @@ def CreateClassifier2():
 def CreateClassifier3():
     regr = linear_model.Ridge (alpha = .5, solver='sag')
     return regr
+
+
+
+import math
+
+def sigmoid(x):
+  return 1 / (1 + math.exp(-x))
+
+def centerValue(minVal,maxVal,x, lowOutput=-6, highOutput=6):
+    if x<=minVal:
+        return lowOutput
+    if x>=maxVal:
+        return highOutput
+    work = (x-minVal)/(maxVal-minVal)
+    return lowOutput+(highOutput-lowOutput)*work
+
+def sigmoidShifted(minVal,maxVal,col):
+    work = [sigmoid(centerValue(minVal,maxVal,x))for x in col]
+    return work
 
 
 def TrainIt(showPlots = True):
@@ -55,20 +74,26 @@ def TrainIt(showPlots = True):
     # Xtest = quantile_transformer.transform(Xtest) 
 
 
-    transformer = FunctionTransformer(np.log1p)
-    transformer.transform(Xtrain[["co", "ai"]])
-    # transformer.transform(Xtrain["ai"])
-    transformer.transform(Xtrain[["co", "ai"]])
-    # transformer.transform(Xtest["ai"])
+    # transformer = FunctionTransformer(np.log1p)
+    # transformer.transform(Xtrain[["co", "ai"]])
+    # # transformer.transform(Xtrain["ai"])
+    # transformer.transform(Xtrain[["co", "ai"]])
+    # # transformer.transform(Xtest["ai"])
     
     scaler = preprocessing.StandardScaler().fit(Xtrain)
 
     Xtrain = scaler.transform(Xtrain) 
     Xtest = scaler.transform(Xtest) 
 
+    # sigWtrain = Wtrain
+    # sigWtest = Wtest
+
+    sigWtrain = sample_weight=sigmoidShifted(25,80,Wtrain)
+    sigWtest = sample_weight=sigmoidShifted(25,80,Wtest)
+
 
     regr = CreateClassifier()
-    regr.fit(Xtrain, Ytrain, sample_weight=Wtrain)
+    regr.fit(Xtrain, Ytrain, sample_weight=sigWtrain)
     # regr.fit(Xtrain, Ytrain)
 
 
@@ -88,7 +113,7 @@ def TrainIt(showPlots = True):
 
     #score
     # print(regr.score(Xtest, Ytest))
-    print(regr.score(Xtest, Ytest, sample_weight=Wtest))
+    print(regr.score(Xtest, Ytest, sample_weight=sigWtest))
 
     print(score_medium(Ytest, Ypredicted))
     if (showPlots):
