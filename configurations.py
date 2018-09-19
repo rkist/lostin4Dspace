@@ -47,4 +47,4 @@ weightColumn = "4D qual Fact"
 predictColumn = "DeltaPressure"
 trainingColumns = [ "x", "y", "MD", "Z", "PTI_TVT", "co", "ai"]
 
-SELECTED_WELL_ID = 10
+SELECTED_WELL_ID = 53

@@ -24,12 +24,15 @@ if __name__ == "__main__":
     print("-----------------------------------------------------")
     datasetDf = pd.read_csv(FILE_ROOT+DATASET_OUTPUT_FILENAME) 
 
-    theWell = datasetDf[datasetDf["Well"] == SELECTED_WELL_ID]
+    # theWell = datasetDf[datasetDf["Well"] == SELECTED_WELL_ID]
+    theWell = datasetDf
     print(theWell.head())
 
     predictedPressure = regr.predict(theWell[trainingColumns])
 
-    OutputXYZandP(theWell[["x", "y", "Z", "DeltaCase"]].reset_index(), predictedPressure, "PredictedWell.csv")
+
+    OutputXYZandP(theWell[["x", "y", "Z", "DeltaCase"]], theWell[predictColumn], "WellsOriginalP.csv")
+    OutputXYZandP(theWell[["x", "y", "Z", "DeltaCase"]].reset_index(), predictedPressure, "WellsPredictedP.csv")
 
 
 
