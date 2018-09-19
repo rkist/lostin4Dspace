@@ -13,4 +13,6 @@ def score_medium(yTest, y):
 
 def plot_scatter(Ytest,y, w):
     plt.scatter(Ytest,y, c=w)
+    plt.colorbar()
+    plt.grid(False)
     plt.show()

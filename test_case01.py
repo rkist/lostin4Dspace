@@ -7,8 +7,8 @@ def CreateClassifier():
     regr = RandomForestRegressor(bootstrap=True, max_depth=12,
            max_features='auto', max_leaf_nodes=None,
            min_impurity_decrease=0.0, min_impurity_split=None,
-           min_samples_leaf=3, min_samples_split=2,
-           min_weight_fraction_leaf=0.0, n_estimators=500, n_jobs=-1,
+           min_samples_leaf=2, min_samples_split=2,
+           min_weight_fraction_leaf=0.0, n_estimators=600, n_jobs=-1,
            oob_score=False, random_state=0, verbose=1, warm_start=False)
     # regr = RandomForestRegressor(max_depth=8, random_state=0)
     return regr
