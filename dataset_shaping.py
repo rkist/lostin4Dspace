@@ -70,6 +70,8 @@ def SplitAndCleanData():
 
     print("Unique wells: "+ str(len(datasetDf.Well.unique())))
 
+    
+
     datasetDf.to_csv(FILE_ROOT+DATASET_OUTPUT_FILENAME)
 
     uniqueWells=datasetDf.Well.unique()

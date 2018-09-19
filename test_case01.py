@@ -15,7 +15,7 @@ def CreateClassifier():
 
 # def CreateClassifier():
 #     regr = svm.SVR(C=1e3, cache_size=200, coef0=0.0, degree=3, epsilon=0.1, gamma="auto", 
-#         kernel='poly', max_iter=1e6, shrinking=True, tol=0.01, verbose=True)
+#         kernel='poly', max_iter=1e7, shrinking=True, tol=0.01, verbose=True)
 #     return regr
 
 
@@ -51,6 +51,14 @@ def RandomForestTheData():
 
     print(Xtrain.head())
     print(Ytrain.head())
+
+
+
+    scaler = preprocessing.StandardScaler().fit(Xtrain)
+    
+    Xtrain = scaler.transform(Xtrain) 
+    Xtest = scaler.transform(Xtest) 
+
 
     regr = CreateClassifier()
     regr.fit(Xtrain, Ytrain, sample_weight=Wtrain)
