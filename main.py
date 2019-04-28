@@ -20,8 +20,6 @@ def IngestShapeTrain(plot = True):
 if __name__ == "__main__":
     regr = IngestShapeTrain(True)
 
-
-
     print("-----------------------------------------------------")
     datasetDf = pd.read_csv(FILE_ROOT+DATASET_OUTPUT_FILENAME) 
 
