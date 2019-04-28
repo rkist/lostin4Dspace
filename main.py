@@ -9,8 +9,6 @@ from configurations import MAP_FILENAME,FILE_ROOT,PRESSURES_FILENAME,LOFS_RAW_FI
 from configurations import SELECTED_WELL_ID
 from configurations import weightColumn, predictColumn, trainingColumns
 
-
-
 def IngestShapeTrain(plot = True):
     IngestData()
     SplitAndCleanData()
